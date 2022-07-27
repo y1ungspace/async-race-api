@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/scripts/index.js",
-    "webpack": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "author": "mikhama",
   "license": "MIT",

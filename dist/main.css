@@ -1,10 +1,66 @@
 /*!*********************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/main.scss ***!
   \*********************************************************************************************************************************************************/
+.header__wrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 80%;
+  margin: auto;
+}
+
+.header__logo {
+  font-family: "Splash", cursive;
+  font-size: 40px;
+  padding: 20px 20px 10px 20px;
+  line-height: 40px;
+  margin: 0px;
+  background: linear-gradient(to right, #FFF 10%, rgb(237, 161, 186) 20%, rgb(255, 0, 0) 30%, rgb(212, 0, 255) 40%, rgb(119, 0, 255) 50%, rgb(80, 64, 206) 60%, rgb(64, 168, 206) 70%, rgb(116, 230, 188) 80%, rgb(255, 255, 255) 90%);
+  background-size: 200% auto;
+  color: #000;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: shine 4s linear infinite;
+          animation: shine 4s linear infinite;
+  cursor: pointer;
+}
+@-webkit-keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.header__button-box {
+  margin-left: auto;
+}
+
+.header__button {
+  width: 120px;
+  height: 80px;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 30px;
+  vertical-align: bottom;
+  cursor: pointer;
+  line-height: 110px;
+  transition: 0.3s;
+}
+.header__button:hover {
+  text-shadow: 0 -1px 4px #FFF, 0 -2px 10px rgb(102, 238, 57), 0 -10px 20px #47b2e8, 0 -18px 40px rgb(172, 44, 240);
+}
+
 html {
   box-sizing: border-box;
   background-color: black;
-  font-family: "Splash", cursive;
+  font-family: "Bebas Neue", cursive;
+  color: #FFFFFF;
 }
 
 /*# sourceMappingURL=main.css.map*/
