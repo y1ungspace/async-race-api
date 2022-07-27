@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":";;;AAAA;EACE;EACA;EAEA;AAAF,C","sources":["webpack://async-race-api/./src/styles/main.scss"],"sourcesContent":["html {\n  box-sizing: border-box;\n  background-color: black;\n  // font-family: 'Bebas Neue', cursive;\n  font-family: 'Splash', cursive; \n}"],"names":[],"sourceRoot":""}
