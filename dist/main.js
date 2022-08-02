@@ -124,6 +124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _car__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./car */ "./src/scripts/car.ts");
 /* harmony import */ var _generateCars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generateCars */ "./src/scripts/generateCars.ts");
+/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pagination */ "./src/scripts/pagination.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -135,11 +136,12 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 
 
+
 function loadCar() {
     return __awaiter(this, void 0, void 0, function* () {
         const box = document.querySelector('.cars-box');
         box.innerHTML = "";
-        const response = yield fetch("http://127.0.0.1:3000/garage")
+        let response = yield fetch("http://127.0.0.1:3000/garage")
             .then((response) => response.json())
             .then((result) => {
             return result;
@@ -151,12 +153,15 @@ function loadCar() {
         generateMoreButton.textContent = '  >>Generate more!';
         carCounter.textContent = `Cars total: ${response.length}`;
         carCounter === null || carCounter === void 0 ? void 0 : carCounter.append(generateMoreButton);
+        response = (0,_pagination__WEBPACK_IMPORTED_MODULE_2__.pagination)(response);
         response.forEach((x) => {
+            console.log(response);
             const newCar = document.createElement('div');
             newCar.classList.add('car');
             newCar.innerHTML = (0,_car__WEBPACK_IMPORTED_MODULE_0__.getCarHtml)(x.name, x.color);
             box === null || box === void 0 ? void 0 : box.append(newCar);
         });
+        document.getElementById('cars').scrollIntoView();
     });
 }
 function createCar(data) {
@@ -168,7 +173,6 @@ function createCar(data) {
             },
             body: JSON.stringify(data),
         });
-        loadCar();
     });
 }
 document.addEventListener('click', () => {
@@ -182,6 +186,7 @@ document.addEventListener('click', () => {
         }
         createCar(data);
         name.value === '';
+        loadCar();
     }
 });
 document.addEventListener('click', () => {
@@ -218,7 +223,54 @@ function OneHundredCars() {
     for (let i = 0; i < 100; i++) {
         generateCar();
     }
+    window.setTimeout(_createCars__WEBPACK_IMPORTED_MODULE_1__.loadCar, 10);
 }
+
+
+/***/ }),
+
+/***/ "./src/scripts/pagination.ts":
+/*!***********************************!*\
+  !*** ./src/scripts/pagination.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "pagination": () => (/* binding */ pagination)
+/* harmony export */ });
+/* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
+
+let currentPage = 1;
+const itemsRow = 7;
+const buttonPrevious = document.getElementById('previous');
+const buttonNext = document.getElementById('next');
+function pagination(response) {
+    if (currentPage === 1) {
+        return response.slice(0, 7);
+    }
+    else {
+        const first = (currentPage - 1) * itemsRow;
+        const last = currentPage * itemsRow;
+        return response.slice(first, last);
+    }
+}
+function changePageNumber() {
+    const counter = document.getElementById('pagesTotal');
+    counter.textContent = `Current page: ${currentPage}`;
+}
+buttonPrevious === null || buttonPrevious === void 0 ? void 0 : buttonPrevious.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+    }
+    changePageNumber();
+    (0,_createCars__WEBPACK_IMPORTED_MODULE_0__.loadCar)();
+});
+buttonNext === null || buttonNext === void 0 ? void 0 : buttonNext.addEventListener('click', () => {
+    currentPage++;
+    changePageNumber();
+    (0,_createCars__WEBPACK_IMPORTED_MODULE_0__.loadCar)();
+});
 
 
 /***/ }),

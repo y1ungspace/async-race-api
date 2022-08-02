@@ -1,12 +1,13 @@
 import { getCarHtml } from "./car";
 import { OneHundredCars } from "./generateCars";
 import { Car } from "./interfaces";
+import { pagination } from "./pagination";
 
 export async function loadCar() {
   const box = document.querySelector('.cars-box');
   box!.innerHTML = "";
 
-  const response = await fetch("http://127.0.0.1:3000/garage")
+  let response = await fetch("http://127.0.0.1:3000/garage")
   .then((response) => response.json()) 
   .then((result) => {
     return result;
@@ -20,13 +21,16 @@ export async function loadCar() {
   carCounter!.textContent = `Cars total: ${response.length}`
   carCounter?.append(generateMoreButton);
   
-
+  response = pagination(response);
   response.forEach((x: Car) => {
+    console.log(response);
     const newCar = document.createElement('div');
     newCar.classList.add('car');
     newCar.innerHTML = getCarHtml(x.name, x.color);
     box?.append(newCar);
   })
+
+  document.getElementById('cars')!.scrollIntoView();
 }
 
 export async function createCar(data: object) {
@@ -37,7 +41,6 @@ export async function createCar(data: object) {
     },
     body: JSON.stringify(data),
   });
-  loadCar();
 } 
 
 
@@ -53,7 +56,8 @@ document.addEventListener('click', () => {
       throw new Error("can't create car without name")
     }
     createCar(data);
-    name.value === ''
+    name.value === '';
+    loadCar();
   }
 })
 

@@ -1,5 +1,5 @@
 import { carNamesArray } from "./carNamesArray";
-import { createCar } from "./createCars";
+import { createCar, loadCar } from "./createCars";
 
 function generateCar() {
   const name = carNamesArray[Math.floor(Math.random()*carNamesArray.length)];
@@ -10,7 +10,8 @@ function generateCar() {
 
 export function OneHundredCars() {
   for (let i = 0; i < 100; i++) {
-    generateCar()
+    generateCar();
   }
+  window.setTimeout(loadCar, 10);
 }
 
