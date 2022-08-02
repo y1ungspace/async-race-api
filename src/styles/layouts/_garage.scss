@@ -31,15 +31,24 @@
   color: rgb(240, 202, 121);
 }
 
-.garage__button {
+.garage__button, 
+.garage__delete-button {
   font-family: 'Gruppo', cursive;
   background-color: transparent;
-  color: rgb(240, 202, 121);
   font-size: 16px;
   text-decoration: none;
   padding-left: 20px;
   cursor: pointer;
-  border: none
+  border: none;
+}
+
+.garage__button {
+  color: rgb(240, 202, 121);
+}
+
+
+.garage__delete-button {
+  color: #cf4339;
 }
 
 .pagination-buttons {
@@ -94,6 +103,7 @@ input[type="color"]::-webkit-color-swatch {
   flex-direction: row;
   margin-top: 10px;
   margin-bottom: 5px;
+  gap: 5px;
 }
 
 .car__start-button {
@@ -145,6 +155,12 @@ input[type="color"]::-webkit-color-swatch {
     align-self: center;
     fill:rgb(15, 93, 173);
   }
+}
+
+.edit-box {
+  display: flex;
+  align-items: flex-start;
+  visibility: hidden;
 }
 
 .car__road {

@@ -27,6 +27,7 @@ export async function loadCar() {
     const newCar = document.createElement('div');
     newCar.classList.add('car');
     newCar.innerHTML = getCarHtml(x.name, x.color);
+    newCar.id = x.id.toString();
     box?.append(newCar);
   })
 

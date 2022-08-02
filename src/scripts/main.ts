@@ -6,6 +6,7 @@ import '../assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg';
 import '../assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg';
 
 import '../styles/main.scss';
+import './carButtons';
 import { loadCar } from './createCars';
 
 
