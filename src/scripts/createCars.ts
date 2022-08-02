@@ -23,7 +23,6 @@ export async function loadCar() {
   
   response = pagination(response);
   response.forEach((x: Car) => {
-    console.log(response);
     const newCar = document.createElement('div');
     newCar.classList.add('car');
     newCar.innerHTML = getCarHtml(x.name, x.color);
