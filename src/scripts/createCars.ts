@@ -1,4 +1,5 @@
 import { getCarHtml } from "./car";
+import { OneHundredCars } from "./generateCars";
 import { Car } from "./interfaces";
 
 export async function loadCar() {
@@ -10,6 +11,16 @@ export async function loadCar() {
   .then((result) => {
     return result;
   });
+
+  const carCounter = document.getElementById('carsTotal');
+  const generateMoreButton = document.createElement('button');
+  generateMoreButton.classList.add('garage__button');
+  generateMoreButton.id = 'generate-button';
+  generateMoreButton.textContent = '  >>Generate more!';
+  carCounter!.textContent = `Cars total: ${response.length}`
+  carCounter?.append(generateMoreButton);
+  
+
   response.forEach((x: Car) => {
     const newCar = document.createElement('div');
     newCar.classList.add('car');
@@ -18,7 +29,7 @@ export async function loadCar() {
   })
 }
 
-async function createCar(data: object) {
+export async function createCar(data: object) {
   await fetch("http://127.0.0.1:3000/garage", {
     method: 'POST',
     headers: {
@@ -34,7 +45,6 @@ async function createCar(data: object) {
 
 document.addEventListener('click', () => {
   const button = document.getElementById("garage-create");
-  console.log('click')
   if (event?.target === button) {
     const name = document.getElementById("name") as HTMLInputElement;
     const color = document.getElementById("color") as HTMLInputElement;
@@ -46,5 +56,14 @@ document.addEventListener('click', () => {
     name.value === ''
   }
 })
+
+document.addEventListener('click', () => {
+  const button = document.getElementById("generate-button");
+  if (event?.target === button) {
+    OneHundredCars()
+  }
+})
+
+
 
 

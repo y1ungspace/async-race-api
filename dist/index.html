@@ -25,7 +25,7 @@
         <div class="garage__pic"></div>
         <div class="garage">
           <h2 class="garage__title">–– Welcome to the garage, boss
-            <button class="garage__button">>>Go to cars</button>
+            <a class="garage__button" href="#cars">>>Go to cars</a>
           </h2>
           <h3 class="garage__subtitle">Or create a new one</h3>
           <div class="create">
@@ -35,9 +35,10 @@
           </div>
         </div>
       </div>
-      <div class="cars">
+      <div class="cars" id="cars">
         <div class="cars__info">
-          <p>Total cars: 7</p>
+          <p id="carsTotal">Total cars: 7
+            <button class="garage__button">    >>Generate more!</button></p> 
           <p>Current page: 7</p>
         </div>
         <div class="cars-box">
@@ -48,3 +49,4 @@
   <footer>
 </body>
 </html>
+
