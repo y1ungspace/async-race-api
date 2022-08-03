@@ -28,6 +28,12 @@ export async function loadCar() {
     newCar.innerHTML = getCarHtml(x.name, x.color);
     newCar.id = x.id.toString();
     box?.append(newCar);
+
+    const flag = newCar.querySelector('.car__racing-flag') as HTMLElement;
+    flag.style.background = `url("./assets/racing-flag.png")`;
+    flag.style.backgroundSize = "100%";
+    flag.style.backgroundPosition = "center";
+    flag.style.backgroundRepeat = "no-repeat"
   })
 
   document.getElementById('cars')!.scrollIntoView();
