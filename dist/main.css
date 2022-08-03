@@ -170,7 +170,6 @@ input[type=color]::-webkit-color-swatch {
   font-family: "Bebas Neue", cursive;
   font-size: 30px;
   color: #FFFFFF;
-  cursor: pointer;
 }
 @keyframes shine {
   to {
@@ -180,6 +179,22 @@ input[type=color]::-webkit-color-swatch {
 .cars__race-button:hover {
   -webkit-animation: shine 0.4s linear infinite;
           animation: shine 0.4s linear infinite;
+}
+
+.cars__race-button_reset {
+  margin-left: auto;
+  margin-right: 200px;
+  width: 124px;
+  height: 124px;
+  border: 5px solid rgb(70, 64, 50);
+  background: rgb(106, 85, 85);
+  background-size: 200% auto;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 62px;
+  font-family: "Bebas Neue", cursive;
+  font-size: 30px;
+  color: #FFFFFF;
 }
 
 .car {

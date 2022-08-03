@@ -1776,6 +1776,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const raceButton = document.querySelector('.cars__race-button');
 function engineOn(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(`http://127.0.0.1:3000/engine?id=${id}&status=started`, {
@@ -1797,7 +1798,6 @@ function carDrive(engine, id) {
     const speed = engine.velocity;
     const distance = engine.distance;
     const time = Math.floor(distance / speed) / 1000;
-    console.log(time);
     carIcon.style.transition = `${time}s`;
     carIcon.style.transform = `translateX(${roadDistance}px)`;
 }
@@ -1805,6 +1805,30 @@ function carReset(car) {
     const carIcon = car.querySelector('.car__image');
     carIcon.style.transition = "0s";
     carIcon.style.transform = '';
+}
+function makeRace() {
+    const carsOnPage = document.querySelectorAll('.car');
+    changeRaceButtonStatus();
+    carsOnPage.forEach(x => {
+        engineOn(x.id);
+    });
+}
+function resetAll() {
+    const carsOnPage = document.querySelectorAll('.car');
+    changeRaceButtonStatus();
+    carsOnPage.forEach(x => {
+        carReset(x);
+    });
+}
+function changeRaceButtonStatus() {
+    raceButton.classList.toggle('cars__race-button');
+    raceButton.classList.toggle('cars__race-button_reset');
+    if (raceButton.textContent === '>>RACE<<') {
+        raceButton.textContent = '>>RESET<<';
+    }
+    else {
+        raceButton.textContent = '>>RACE<<';
+    }
 }
 document.addEventListener('click', () => {
     var _a, _b, _c, _d;
@@ -1816,6 +1840,13 @@ document.addEventListener('click', () => {
         const car = (_d = (_c = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _c === void 0 ? void 0 : _c.parentNode) === null || _d === void 0 ? void 0 : _d.parentNode;
         carReset(car);
     }
+});
+raceButton === null || raceButton === void 0 ? void 0 : raceButton.addEventListener('click', () => {
+    if (raceButton.textContent === '>>RESET<<') {
+        resetAll();
+        return;
+    }
+    makeRace();
 });
 
 

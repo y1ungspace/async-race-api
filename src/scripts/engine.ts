@@ -1,5 +1,7 @@
 import { Engine } from "./interfaces";
 
+const raceButton = document.querySelector('.cars__race-button') as HTMLElement;
+
 async function engineOn(id: string) {
   const response = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=started`, {
     method: "PATCH"
@@ -23,8 +25,6 @@ function carDrive(engine: Engine, id: string) {
   const distance = engine.distance;
   const time = Math.floor(distance / speed) / 1000;
 
-  console.log(time);
-
   carIcon.style.transition = `${time}s`;
   carIcon.style.transform = `translateX(${roadDistance}px)`;
 }
@@ -35,8 +35,36 @@ function carReset(car: HTMLElement) {
   carIcon.style.transform = '';
 }
 
+function makeRace() {
+  const carsOnPage = document.querySelectorAll('.car');
 
+  changeRaceButtonStatus();
 
+  carsOnPage.forEach(x => {
+    engineOn(x.id);
+  })
+}
+
+function resetAll() {
+  const carsOnPage = document.querySelectorAll('.car');
+
+  changeRaceButtonStatus();
+  
+  carsOnPage.forEach(x => {
+    carReset(x as HTMLElement);
+  })
+}
+
+function changeRaceButtonStatus() {
+  raceButton.classList.toggle('cars__race-button');
+  raceButton.classList.toggle('cars__race-button_reset');
+  
+  if (raceButton.textContent === '>>RACE<<') {
+    raceButton.textContent = '>>RESET<<';
+  } else {
+    raceButton.textContent = '>>RACE<<';
+  }
+}
 
 
 document.addEventListener('click', () => {
@@ -48,3 +76,12 @@ document.addEventListener('click', () => {
     carReset(car)
   }
 })
+
+raceButton?.addEventListener('click', () => {
+  if (raceButton.textContent === '>>RESET<<') {
+    resetAll();
+    return;
+  }
+  makeRace();
+})
+
