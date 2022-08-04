@@ -1786,7 +1786,21 @@ function engineOn(id) {
             .then((result) => {
             return result;
         });
+        driveRequest(id);
         carDrive(response, id);
+    });
+}
+function driveRequest(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const responseStatus = yield fetch(`http://127.0.0.1:3000/engine?id=${id}&status=drive`, {
+            method: "PATCH"
+        })
+            .then((response) => {
+            return response.status;
+        });
+        if (responseStatus === 500) {
+            stopImmediately(id);
+        }
     });
 }
 function carDrive(engine, id) {
@@ -1800,6 +1814,15 @@ function carDrive(engine, id) {
     const time = Math.floor(distance / speed) / 1000;
     carIcon.style.transition = `${time}s`;
     carIcon.style.transform = `translateX(${roadDistance}px)`;
+}
+function stopImmediately(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const car = document.getElementById(id);
+        const carIcon = car === null || car === void 0 ? void 0 : car.children[2];
+        const status = carIcon.getBoundingClientRect();
+        console.log(status.left);
+        carIcon.style.transform = `translateX(${status.left - 50}px)`;
+    });
 }
 function carReset(car) {
     const carIcon = car.querySelector('.car__image');

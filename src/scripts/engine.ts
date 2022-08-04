@@ -10,7 +10,20 @@ async function engineOn(id: string) {
   .then((result) => {
     return result;
   });
+  driveRequest(id);
   carDrive(response, id);
+}
+
+async function driveRequest(id: string) {
+  const responseStatus = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=drive`, {
+    method: "PATCH"
+  })
+  .then((response) => {
+    return response.status;
+  });
+  if (responseStatus === 500) {
+    stopImmediately(id)
+  }
 }
 
 
@@ -27,6 +40,15 @@ function carDrive(engine: Engine, id: string) {
 
   carIcon.style.transition = `${time}s`;
   carIcon.style.transform = `translateX(${roadDistance}px)`;
+}
+
+async function stopImmediately(id: string) {
+  const car = document.getElementById(id) as Element;
+  const carIcon = car?.children[2] as HTMLElement;
+
+  const status = carIcon.getBoundingClientRect()
+  console.log(status.left);
+  carIcon.style.transform = `translateX(${status.left - 50}px)`;
 }
 
 function carReset(car: HTMLElement) {
