@@ -1,0 +1,31 @@
+.winners {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.winners_hidden {
+  display: none;
+}
+
+.winners__pic {
+  width: 15%;
+  min-height: 150px;
+}
+
+.winners__title {
+  color: rgb(240, 202, 121);
+  font-size: 30px;
+}
+
+.winners__table {
+  width: 100%;
+  border: 5px solid rgb(240, 202, 121);
+  border-radius: 10px;
+}
+
+.winner__table__header {
+  background-color: rgb(15, 93, 173);
+  border-bottom: 2px solid rgb(240, 202, 121);
+}

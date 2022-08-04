@@ -1667,6 +1667,40 @@ const carNamesArray = [
 
 /***/ }),
 
+/***/ "./src/scripts/changeView.ts":
+/*!***********************************!*\
+  !*** ./src/scripts/changeView.ts ***!
+  \***********************************/
+/***/ (() => {
+
+
+const garage = document.getElementById('garage');
+const winners = document.getElementById('winners');
+const garageButton = document.getElementById('garage-button');
+const winnersButton = document.getElementById('winners-button');
+let currentPage = 'garage';
+function changeView() {
+    garage === null || garage === void 0 ? void 0 : garage.classList.toggle('garage');
+    garage === null || garage === void 0 ? void 0 : garage.classList.toggle('garage_hidden');
+    winners === null || winners === void 0 ? void 0 : winners.classList.toggle('winners');
+    winners === null || winners === void 0 ? void 0 : winners.classList.toggle('winners_hidden');
+}
+garageButton === null || garageButton === void 0 ? void 0 : garageButton.addEventListener('click', () => {
+    if (currentPage === 'winners') {
+        currentPage = 'garage';
+        changeView();
+    }
+});
+winnersButton === null || winnersButton === void 0 ? void 0 : winnersButton.addEventListener('click', () => {
+    if (currentPage === 'garage') {
+        currentPage = 'winners';
+        changeView();
+    }
+});
+
+
+/***/ }),
+
 /***/ "./src/scripts/createCars.ts":
 /*!***********************************!*\
   !*** ./src/scripts/createCars.ts ***!
@@ -1821,7 +1855,7 @@ function stopImmediately(id) {
         const carIcon = car === null || car === void 0 ? void 0 : car.children[2];
         const status = carIcon.getBoundingClientRect();
         console.log(status.left);
-        carIcon.style.transform = `translateX(${status.left - 50}px)`;
+        carIcon.style.transform = `translateX(${status.left - 80}px)`;
     });
 }
 function carReset(car) {
@@ -1965,6 +1999,16 @@ module.exports = __webpack_require__.p + "./assets/flag_circle_FILL0_wght400_GRA
 
 /***/ }),
 
+/***/ "./src/assets/lauren-wreath.png":
+/*!**************************************!*\
+  !*** ./src/assets/lauren-wreath.png ***!
+  \**************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "./assets/lauren-wreath..png";
+
+/***/ }),
+
 /***/ "./src/assets/racer.png":
 /*!******************************!*\
   !*** ./src/assets/racer.png ***!
@@ -2022,6 +2066,18 @@ module.exports = __webpack_require__.p + "./assets/restart_alt_FILL0_wght400_GRA
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -2094,11 +2150,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_racing_flag_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/racing-flag.png */ "./src/assets/racing-flag.png");
 /* harmony import */ var _assets_flag_circle_FILL0_wght400_GRAD0_opsz40_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg */ "./src/assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg");
 /* harmony import */ var _assets_restart_alt_FILL0_wght400_GRAD0_opsz40_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg */ "./src/assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg");
-/* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles/main.scss */ "./src/styles/main.scss");
-/* harmony import */ var _carButtons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./carButtons */ "./src/scripts/carButtons.ts");
-/* harmony import */ var _engine__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./engine */ "./src/scripts/engine.ts");
-/* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
+/* harmony import */ var _assets_lauren_wreath_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/lauren-wreath.png */ "./src/assets/lauren-wreath.png");
+/* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/main.scss */ "./src/styles/main.scss");
+/* harmony import */ var _carButtons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./carButtons */ "./src/scripts/carButtons.ts");
+/* harmony import */ var _engine__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./engine */ "./src/scripts/engine.ts");
+/* harmony import */ var _changeView__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./changeView */ "./src/scripts/changeView.ts");
+/* harmony import */ var _changeView__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_changeView__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
 // import * as index from './index'
+
+
 
 
 
@@ -2112,7 +2173,12 @@ garagePic.style.background = `url("./assets/racer.png")`;
 garagePic.style.backgroundSize = "200%";
 garagePic.style.backgroundPosition = "center";
 garagePic.style.backgroundRepeat = "no-repeat";
-(0,_createCars__WEBPACK_IMPORTED_MODULE_7__.loadCar)();
+const winnersPic = document.querySelector('.winners__pic');
+winnersPic.style.background = `url("./assets/lauren-wreath.png")`;
+winnersPic.style.backgroundSize = "100%";
+winnersPic.style.backgroundPosition = "bottom";
+winnersPic.style.backgroundRepeat = "no-repeat";
+(0,_createCars__WEBPACK_IMPORTED_MODULE_9__.loadCar)();
 
 })();
 

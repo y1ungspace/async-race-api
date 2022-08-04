@@ -48,7 +48,7 @@ async function stopImmediately(id: string) {
 
   const status = carIcon.getBoundingClientRect()
   console.log(status.left);
-  carIcon.style.transform = `translateX(${status.left - 50}px)`;
+  carIcon.style.transform = `translateX(${status.left - 80}px)`;
 }
 
 function carReset(car: HTMLElement) {
