@@ -1,6 +1,9 @@
 import { Engine } from "./interfaces";
+import { determineWinner } from "./winners";
 
 const raceButton = document.querySelector('.cars__race-button') as HTMLElement;
+type winnerFinish = true | false
+let IsWinnerDetermined: winnerFinish = false;
 
 async function engineOn(id: string) {
   const response = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=started`, {
@@ -40,6 +43,14 @@ function carDrive(engine: Engine, id: string) {
 
   carIcon.style.transition = `${time}s`;
   carIcon.style.transform = `translateX(${roadDistance}px)`;
+
+  carIcon.addEventListener('transitionend', () => {
+    if (IsWinnerDetermined === false) {
+      const transitionDuration = carIcon.style.transitionDuration
+      determineWinner(id, transitionDuration);
+      IsWinnerDetermined = true;
+    }
+  })
 }
 
 async function stopImmediately(id: string) {
@@ -47,8 +58,8 @@ async function stopImmediately(id: string) {
   const carIcon = car?.children[2] as HTMLElement;
 
   const status = carIcon.getBoundingClientRect()
-  console.log(status.left);
   carIcon.style.transform = `translateX(${status.left - 80}px)`;
+  carIcon.style.transition = "1000s";
 }
 
 function carReset(car: HTMLElement) {
@@ -57,7 +68,7 @@ function carReset(car: HTMLElement) {
   carIcon.style.transform = '';
 }
 
-function makeRace() {
+async function makeRace() {
   const carsOnPage = document.querySelectorAll('.car');
 
   changeRaceButtonStatus();
@@ -71,6 +82,7 @@ function resetAll() {
   const carsOnPage = document.querySelectorAll('.car');
 
   changeRaceButtonStatus();
+  IsWinnerDetermined = false;
   
   carsOnPage.forEach(x => {
     carReset(x as HTMLElement);

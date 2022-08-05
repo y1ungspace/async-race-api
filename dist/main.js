@@ -39,6 +39,7 @@ function getCarHtml(name, color) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
+/* harmony import */ var _winners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./winners */ "./src/scripts/winners.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -48,6 +49,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 function openEditMode(target) {
     const editButton = target.parentNode;
@@ -85,6 +87,7 @@ function deleteCar(target) {
         yield fetch(`http://127.0.0.1:3000/garage/${id}`, {
             method: 'DELETE',
         });
+        (0,_winners__WEBPACK_IMPORTED_MODULE_1__.deleteWinner)(id);
         (0,_createCars__WEBPACK_IMPORTED_MODULE_0__.loadCar)();
     });
 }
@@ -1801,6 +1804,7 @@ document.addEventListener('click', () => {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _winners__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./winners */ "./src/scripts/winners.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1810,7 +1814,9 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 const raceButton = document.querySelector('.cars__race-button');
+let IsWinnerDetermined = false;
 function engineOn(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(`http://127.0.0.1:3000/engine?id=${id}&status=started`, {
@@ -1848,14 +1854,21 @@ function carDrive(engine, id) {
     const time = Math.floor(distance / speed) / 1000;
     carIcon.style.transition = `${time}s`;
     carIcon.style.transform = `translateX(${roadDistance}px)`;
+    carIcon.addEventListener('transitionend', () => {
+        if (IsWinnerDetermined === false) {
+            const transitionDuration = carIcon.style.transitionDuration;
+            (0,_winners__WEBPACK_IMPORTED_MODULE_0__.determineWinner)(id, transitionDuration);
+            IsWinnerDetermined = true;
+        }
+    });
 }
 function stopImmediately(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const car = document.getElementById(id);
         const carIcon = car === null || car === void 0 ? void 0 : car.children[2];
         const status = carIcon.getBoundingClientRect();
-        console.log(status.left);
         carIcon.style.transform = `translateX(${status.left - 80}px)`;
+        carIcon.style.transition = "1000s";
     });
 }
 function carReset(car) {
@@ -1864,15 +1877,18 @@ function carReset(car) {
     carIcon.style.transform = '';
 }
 function makeRace() {
-    const carsOnPage = document.querySelectorAll('.car');
-    changeRaceButtonStatus();
-    carsOnPage.forEach(x => {
-        engineOn(x.id);
+    return __awaiter(this, void 0, void 0, function* () {
+        const carsOnPage = document.querySelectorAll('.car');
+        changeRaceButtonStatus();
+        carsOnPage.forEach(x => {
+            engineOn(x.id);
+        });
     });
 }
 function resetAll() {
     const carsOnPage = document.querySelectorAll('.car');
     changeRaceButtonStatus();
+    IsWinnerDetermined = false;
     carsOnPage.forEach(x => {
         carReset(x);
     });
@@ -1905,7 +1921,6 @@ raceButton === null || raceButton === void 0 ? void 0 : raceButton.addEventListe
     }
     makeRace();
 });
-
 
 
 /***/ }),
@@ -1985,6 +2000,89 @@ buttonNext === null || buttonNext === void 0 ? void 0 : buttonNext.addEventListe
     changePageNumber();
     (0,_createCars__WEBPACK_IMPORTED_MODULE_0__.loadCar)();
 });
+
+
+/***/ }),
+
+/***/ "./src/scripts/winners.ts":
+/*!********************************!*\
+  !*** ./src/scripts/winners.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "deleteWinner": () => (/* binding */ deleteWinner),
+/* harmony export */   "determineWinner": () => (/* binding */ determineWinner)
+/* harmony export */ });
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function determineWinner(id, time) {
+    const timeSum = time.replace('s', '');
+    ifExists(Number(id), Number(timeSum));
+}
+function ifExists(id, time) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(`http://127.0.0.1:3000/winners/${id}`)
+            .then((response) => response.json())
+            .then((result) => {
+            return result;
+        });
+        const data = { id: id, wins: 1, time: time };
+        if (!response.wins) {
+            createNewWinner(data);
+        }
+        else {
+            updateWinner(data);
+        }
+    });
+}
+function createNewWinner(data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield fetch("http://127.0.0.1:3000/winners", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        });
+    });
+}
+function updateWinner(data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(`http://127.0.0.1:3000/winners/${data.id}`)
+            .then((response) => response.json())
+            .then((result) => {
+            return result;
+        });
+        data.wins++;
+        console.log(data.id, data.time, response.time);
+        if (data.time > response.time) {
+            data.time = response.time;
+        }
+        yield fetch(`http://127.0.0.1:3000/winners/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ wins: data.wins, time: data.time }),
+        });
+    });
+}
+function deleteWinner(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield fetch(`http://127.0.0.1:3000/winners/${id}`, {
+            method: 'DELETE'
+        });
+    });
+}
 
 
 /***/ }),

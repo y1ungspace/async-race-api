@@ -1,5 +1,6 @@
 import { loadCar } from "./createCars";
 import { Car } from "./interfaces";
+import { deleteWinner } from "./winners";
 
 function openEditMode(target: Node) {
   const editButton = target.parentNode;
@@ -37,6 +38,7 @@ async function deleteCar(target: Node) {
   await fetch(`http://127.0.0.1:3000/garage/${id}`, {
     method: 'DELETE',
   });
+  deleteWinner(id);
   loadCar();
 }
 
@@ -55,7 +57,6 @@ document.addEventListener('click', () => {
 
 document.addEventListener('click', () => {
   if ((event?.target as HTMLElement).classList.contains('garage__delete-button')) {
-    console.log('must delete')
     deleteCar((event?.target as Node));
   }
 })
