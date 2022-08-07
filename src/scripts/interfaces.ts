@@ -15,3 +15,11 @@ export interface Winner {
   wins: number;
   time: number;
 }
+
+export interface tableItem {
+  id: number;
+  wins: number;
+  time: number;
+  name: string;
+  color:string;
+}

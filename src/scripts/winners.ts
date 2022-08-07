@@ -1,4 +1,5 @@
 import { Winner } from "./interfaces";
+import { loadTable } from "./winnersTable";
 
 export function determineWinner(id: string, time: string) {
   const timeSum = time.replace('s', '')
@@ -19,6 +20,7 @@ async function ifExists(id: number, time: number) {
   } else {
     updateWinner(data);
   }
+  setTimeout(loadTable, 5000);
 }
 
 async function createNewWinner(data: Winner) {
@@ -40,7 +42,6 @@ async function updateWinner(data: Winner) {
   
   data.wins++
 
-  console.log(data.id, data.time, response.time)
   if (data.time > response.time) {
     data.time = response.time
   }

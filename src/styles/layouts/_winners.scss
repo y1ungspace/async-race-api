@@ -29,3 +29,35 @@
   background-color: rgb(15, 93, 173);
   border-bottom: 2px solid rgb(240, 202, 121);
 }
+
+.navigation {
+  display: flex;
+}
+
+.navigation__page-number{
+  padding-left: 20px;
+  padding-right: 20px;
+  color:rgb(240, 202, 121);
+}
+
+.navigation__button {
+  width: 90px;
+  font-family: 'Gruppo', cursive;
+  background-color: transparent;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  color: rgb(240, 202, 121);
+  text-align: left;
+}
+
+td {
+  padding-left: 10px;
+}
+
+#wins, 
+#time {
+  cursor: pointer;
+  user-select: none; 
+}

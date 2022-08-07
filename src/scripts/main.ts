@@ -6,11 +6,13 @@ import '../assets/racing-flag.png'
 import '../assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg';
 import '../assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg';
 import '../assets/lauren-wreath.png'
+import '../assets/car-02.svg';
 
 import '../styles/main.scss';
 import './carButtons';
 import './engine';
-import './changeView'
+import './changeView';
+import './winnersTable';
 import { loadCar } from './createCars';
 
 
