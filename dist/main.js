@@ -1818,7 +1818,8 @@ document.addEventListener('click', () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _carButtons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./carButtons */ "./src/scripts/carButtons.ts");
-/* harmony import */ var _winners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./winners */ "./src/scripts/winners.ts");
+/* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
+/* harmony import */ var _winners__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./winners */ "./src/scripts/winners.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1828,6 +1829,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 const raceButton = document.querySelector('.cars__race-button');
@@ -1874,7 +1876,7 @@ function carDrive(engine, id) {
         carIcon.addEventListener('transitionend', () => {
             if (IsWinnerDetermined === false) {
                 const transitionDuration = carIcon.style.transitionDuration;
-                (0,_winners__WEBPACK_IMPORTED_MODULE_1__.determineWinner)(id, transitionDuration);
+                (0,_winners__WEBPACK_IMPORTED_MODULE_2__.determineWinner)(id, transitionDuration);
                 IsWinnerDetermined = true;
                 const winnerNotification = document.createElement('div');
                 const html = document.getElementsByTagName('html')[0];
@@ -1943,25 +1945,31 @@ function changeRaceButtonStatus() {
     }
 }
 document.addEventListener('click', () => {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d;
     if ((event === null || event === void 0 ? void 0 : event.target).id === 'start') {
+        IsWinnerDetermined = true;
+        if (raceButton.textContent === '>>RACE<<') {
+            changeRaceButtonStatus();
+        }
         (0,_carButtons__WEBPACK_IMPORTED_MODULE_0__.disableButtons)(event === null || event === void 0 ? void 0 : event.target);
-        (0,_carButtons__WEBPACK_IMPORTED_MODULE_0__.unlockButtons)((_a = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _a === void 0 ? void 0 : _a.nextSibling, 'car__start-reset');
-        const car = (_c = (_b = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _b === void 0 ? void 0 : _b.parentNode) === null || _c === void 0 ? void 0 : _c.parentNode;
+        (0,_carButtons__WEBPACK_IMPORTED_MODULE_0__.unlockButtons)((event === null || event === void 0 ? void 0 : event.target).parentNode.nextSibling, 'car__start-reset');
+        const car = (_b = (_a = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _a === void 0 ? void 0 : _a.parentNode) === null || _b === void 0 ? void 0 : _b.parentNode;
         engineOn(car.id);
     }
     else if ((event === null || event === void 0 ? void 0 : event.target).id === 'reset') {
         (0,_carButtons__WEBPACK_IMPORTED_MODULE_0__.disableButtons)(event === null || event === void 0 ? void 0 : event.target);
-        (0,_carButtons__WEBPACK_IMPORTED_MODULE_0__.unlockButtons)((_d = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _d === void 0 ? void 0 : _d.previousSibling, 'car__start-button');
-        const car = (_f = (_e = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _e === void 0 ? void 0 : _e.parentNode) === null || _f === void 0 ? void 0 : _f.parentNode;
+        (0,_carButtons__WEBPACK_IMPORTED_MODULE_0__.unlockButtons)((event === null || event === void 0 ? void 0 : event.target).parentNode.previousSibling, 'car__start-button');
+        const car = (_d = (_c = (event === null || event === void 0 ? void 0 : event.target).parentNode) === null || _c === void 0 ? void 0 : _c.parentNode) === null || _d === void 0 ? void 0 : _d.parentNode;
         carReset(car);
     }
 });
 raceButton === null || raceButton === void 0 ? void 0 : raceButton.addEventListener('click', () => {
     if (raceButton.textContent === '>>RESET<<') {
+        (0,_createCars__WEBPACK_IMPORTED_MODULE_1__.loadCar)();
         resetAll();
         return;
     }
+    IsWinnerDetermined = false;
     makeRace();
 });
 
@@ -2455,6 +2463,16 @@ module.exports = __webpack_require__.p + "./assets/racing-flag..png";
 
 module.exports = __webpack_require__.p + "./assets/restart_alt_FILL0_wght400_GRAD0_opsz40..svg";
 
+/***/ }),
+
+/***/ "./src/assets/trophy.ico":
+/*!*******************************!*\
+  !*** ./src/assets/trophy.ico ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "./assets/trophy..ico";
+
 /***/ })
 
 /******/ 	});
@@ -2564,20 +2582,21 @@ var __webpack_exports__ = {};
   !*** ./src/scripts/main.ts ***!
   \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _assets_racer_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/racer.png */ "./src/assets/racer.png");
-/* harmony import */ var _assets_racing_flag_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/racing-flag.png */ "./src/assets/racing-flag.png");
-/* harmony import */ var _assets_flag_circle_FILL0_wght400_GRAD0_opsz40_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg */ "./src/assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg");
-/* harmony import */ var _assets_restart_alt_FILL0_wght400_GRAD0_opsz40_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg */ "./src/assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg");
-/* harmony import */ var _assets_lauren_wreath_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/lauren-wreath.png */ "./src/assets/lauren-wreath.png");
-/* harmony import */ var _assets_car_02_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/car-02.svg */ "./src/assets/car-02.svg");
-/* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../styles/main.scss */ "./src/styles/main.scss");
-/* harmony import */ var _carButtons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./carButtons */ "./src/scripts/carButtons.ts");
-/* harmony import */ var _engine__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./engine */ "./src/scripts/engine.ts");
-/* harmony import */ var _changeView__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./changeView */ "./src/scripts/changeView.ts");
-/* harmony import */ var _changeView__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_changeView__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _winnersTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./winnersTable */ "./src/scripts/winnersTable.ts");
-/* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
-// import * as index from './index'
+/* harmony import */ var _assets_trophy_ico__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/trophy.ico */ "./src/assets/trophy.ico");
+/* harmony import */ var _assets_racer_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/racer.png */ "./src/assets/racer.png");
+/* harmony import */ var _assets_racing_flag_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/racing-flag.png */ "./src/assets/racing-flag.png");
+/* harmony import */ var _assets_flag_circle_FILL0_wght400_GRAD0_opsz40_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg */ "./src/assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg");
+/* harmony import */ var _assets_restart_alt_FILL0_wght400_GRAD0_opsz40_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg */ "./src/assets/restart_alt_FILL0_wght400_GRAD0_opsz40.svg");
+/* harmony import */ var _assets_lauren_wreath_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/lauren-wreath.png */ "./src/assets/lauren-wreath.png");
+/* harmony import */ var _assets_car_02_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../assets/car-02.svg */ "./src/assets/car-02.svg");
+/* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/main.scss */ "./src/styles/main.scss");
+/* harmony import */ var _carButtons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./carButtons */ "./src/scripts/carButtons.ts");
+/* harmony import */ var _engine__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./engine */ "./src/scripts/engine.ts");
+/* harmony import */ var _changeView__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./changeView */ "./src/scripts/changeView.ts");
+/* harmony import */ var _changeView__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_changeView__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _winnersTable__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./winnersTable */ "./src/scripts/winnersTable.ts");
+/* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
+
 
 
 
@@ -2600,7 +2619,7 @@ winnersPic.style.background = `url("./assets/lauren-wreath.png")`;
 winnersPic.style.backgroundSize = "100%";
 winnersPic.style.backgroundPosition = "bottom";
 winnersPic.style.backgroundRepeat = "no-repeat";
-(0,_createCars__WEBPACK_IMPORTED_MODULE_11__.loadCar)();
+(0,_createCars__WEBPACK_IMPORTED_MODULE_12__.loadCar)();
 
 })();
 

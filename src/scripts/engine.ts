@@ -1,5 +1,5 @@
-import { brotliDecompressSync } from "zlib";
 import { disableButtons, unlockButtons } from "./carButtons";
+import { loadCar } from "./createCars";
 import { Engine } from "./interfaces";
 import { determineWinner } from "./winners";
 
@@ -127,13 +127,17 @@ function changeRaceButtonStatus() {
 
 document.addEventListener('click', () => {
   if((event?.target as HTMLElement).id === 'start') {
+    IsWinnerDetermined = true;
+    if (raceButton.textContent === '>>RACE<<') {
+      changeRaceButtonStatus();
+    }
     disableButtons(event?.target as HTMLElement);
-    unlockButtons((event?.target as Node).parentNode?.nextSibling!, 'car__start-reset')
+    unlockButtons((event?.target as Node).parentNode!.nextSibling!, 'car__start-reset')
     const car = (event?.target as Node).parentNode?.parentNode?.parentNode as HTMLElement;
     engineOn(car.id);
   } else if ((event?.target as HTMLElement).id === 'reset') {
     disableButtons(event?.target as HTMLElement);
-    unlockButtons((event?.target as Node).parentNode?.previousSibling!, 'car__start-button')
+    unlockButtons((event?.target as Node).parentNode!.previousSibling!, 'car__start-button')
     const car = (event?.target as Node).parentNode?.parentNode?.parentNode as HTMLElement;
     carReset(car)
   }
@@ -141,9 +145,11 @@ document.addEventListener('click', () => {
 
 raceButton?.addEventListener('click', () => {
   if (raceButton.textContent === '>>RESET<<') {
+    loadCar();
     resetAll();
     return;
   }
+  IsWinnerDetermined = false;
   makeRace();
 })
 

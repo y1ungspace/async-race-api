@@ -1,6 +1,4 @@
-// import * as index from './index'
-
-
+import '../assets/trophy.ico'
 import '../assets/racer.png' ;
 import '../assets/racing-flag.png'
 import '../assets/flag_circle_FILL0_wght400_GRAD0_opsz40.svg';
