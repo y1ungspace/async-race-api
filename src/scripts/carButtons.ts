@@ -1,6 +1,7 @@
 import { loadCar } from "./createCars";
 import { Car } from "./interfaces";
 import { deleteWinner } from "./winners";
+import { loadTable } from "./winnersTable";
 
 function openEditMode(target: Node) {
   const editButton = target.parentNode;
@@ -40,6 +41,7 @@ async function deleteCar(target: Node) {
   });
   deleteWinner(id);
   loadCar();
+  loadTable();
 }
 
 

@@ -130,7 +130,10 @@ timeColomn?.addEventListener('click', () => {
 })
 
 previousButton?.addEventListener('click', () => {
-  const direction = determineDirection()
+  if (currentPage < 2) {
+    return;
+  }
+  const direction = determineDirection();
   currentPage--;
   pageNumber!.textContent = currentPage.toString();
   loadTable(currentState, direction, currentPage)

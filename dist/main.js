@@ -40,6 +40,7 @@ function getCarHtml(name, color) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createCars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createCars */ "./src/scripts/createCars.ts");
 /* harmony import */ var _winners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./winners */ "./src/scripts/winners.ts");
+/* harmony import */ var _winnersTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./winnersTable */ "./src/scripts/winnersTable.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49,6 +50,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 function openEditMode(target) {
@@ -89,6 +91,7 @@ function deleteCar(target) {
         });
         (0,_winners__WEBPACK_IMPORTED_MODULE_1__.deleteWinner)(id);
         (0,_createCars__WEBPACK_IMPORTED_MODULE_0__.loadCar)();
+        (0,_winnersTable__WEBPACK_IMPORTED_MODULE_2__.loadTable)();
     });
 }
 document.addEventListener('click', () => {
@@ -2359,6 +2362,9 @@ timeColomn === null || timeColomn === void 0 ? void 0 : timeColomn.addEventListe
     loadTable(currentState, timeSort, currentPage);
 });
 previousButton === null || previousButton === void 0 ? void 0 : previousButton.addEventListener('click', () => {
+    if (currentPage < 2) {
+        return;
+    }
     const direction = determineDirection();
     currentPage--;
     pageNumber.textContent = currentPage.toString();

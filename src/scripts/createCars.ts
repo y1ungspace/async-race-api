@@ -50,8 +50,6 @@ export async function createCar(data: object) {
 } 
 
 
-
-
 document.addEventListener('click', () => {
   const button = document.getElementById("garage-create");
   if (event?.target === button) {
