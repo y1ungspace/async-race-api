@@ -284,7 +284,8 @@ td {
   gap: 5px;
 }
 
-.car__start-button {
+.car__start-button,
+.car__button_disabled {
   display: flex;
   justify-content: center;
   width: 40px;
@@ -294,7 +295,8 @@ td {
   background-color: transparent;
   cursor: pointer;
 }
-.car__start-button svg {
+.car__start-button svg,
+.car__button_disabled svg {
   min-width: 40px;
   justify-self: center;
   align-self: center;
@@ -333,6 +335,14 @@ td {
   justify-self: center;
   align-self: center;
   fill: rgb(15, 93, 173);
+}
+
+.car__button_disabled {
+  pointer-events: none;
+  border: 2px solid rgb(98, 102, 106);
+}
+.car__button_disabled svg {
+  fill: rgb(98, 102, 106);
 }
 
 .edit-box {

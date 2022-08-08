@@ -44,6 +44,15 @@ async function deleteCar(target: Node) {
   loadTable();
 }
 
+export function disableButtons(elem: HTMLElement) {
+  const button = elem.parentNode as HTMLElement;
+  button.className = "car__button_disabled"
+}
+
+export function unlockButtons(elem: Node, elemClass: string) {
+  (elem as HTMLElement).className = elemClass;
+}
+
 
 document.addEventListener('click', () => {
   if ((event?.target as HTMLElement).classList.contains('edit')) {

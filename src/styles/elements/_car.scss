@@ -71,7 +71,8 @@
   gap: 5px;
 }
 
-.car__start-button {
+.car__start-button, 
+.car__button_disabled {
   display: flex;
   justify-content: center;
   width: 40px;
@@ -119,6 +120,14 @@
     justify-self: center;
     align-self: center;
     fill:rgb(15, 93, 173);
+  }
+}
+
+.car__button_disabled {
+  pointer-events: none;
+  border: 2px solid rgb(98, 102, 106);
+  svg {
+    fill:rgb(98, 102, 106);
   }
 }
 
