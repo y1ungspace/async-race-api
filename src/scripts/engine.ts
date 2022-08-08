@@ -1,3 +1,4 @@
+import { brotliDecompressSync } from "zlib";
 import { Engine } from "./interfaces";
 import { determineWinner } from "./winners";
 
@@ -30,12 +31,13 @@ async function driveRequest(id: string) {
 }
 
 
-function carDrive(engine: Engine, id: string) {
+async function carDrive(engine: Engine, id: string) {
   const car = document.getElementById(id);
   const carIcon = car?.children[2] as HTMLElement;
   const road = document.querySelector('.car__road') as HTMLElement;
   const carWidht = 100;
   const roadDistance = road.offsetWidth - carWidht;
+  const name = await getNameById(id);
 
   const speed = engine.velocity;
   const distance = engine.distance;
@@ -49,8 +51,29 @@ function carDrive(engine: Engine, id: string) {
       const transitionDuration = carIcon.style.transitionDuration
       determineWinner(id, transitionDuration);
       IsWinnerDetermined = true;
+
+      const winnerNotification = document.createElement('div');
+      const html = document.getElementsByTagName('html')[0];
+      winnerNotification.classList.add('winner-notification');
+      winnerNotification.textContent = `${name} IS A WINNER WITH ${time}s`;
+      html.append(winnerNotification);
+      setTimeout(() => {
+        winnerNotification.style.left = '5000px';
+      }, 5000)
+      setTimeout(() => {
+        html.removeChild(winnerNotification)
+      }, 7000)
     }
   })
+}
+
+async function getNameById(id: string) {
+  const response = await fetch(`http://127.0.0.1:3000/garage/${id}`)
+  .then((response) => response.json()) 
+  .then((result) => {
+    return result;
+  });
+  return response.name;
 }
 
 async function stopImmediately(id: string) {

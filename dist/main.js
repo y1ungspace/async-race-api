@@ -1843,22 +1843,46 @@ function driveRequest(id) {
     });
 }
 function carDrive(engine, id) {
-    const car = document.getElementById(id);
-    const carIcon = car === null || car === void 0 ? void 0 : car.children[2];
-    const road = document.querySelector('.car__road');
-    const carWidht = 100;
-    const roadDistance = road.offsetWidth - carWidht;
-    const speed = engine.velocity;
-    const distance = engine.distance;
-    const time = Math.floor(distance / speed) / 1000;
-    carIcon.style.transition = `${time}s`;
-    carIcon.style.transform = `translateX(${roadDistance}px)`;
-    carIcon.addEventListener('transitionend', () => {
-        if (IsWinnerDetermined === false) {
-            const transitionDuration = carIcon.style.transitionDuration;
-            (0,_winners__WEBPACK_IMPORTED_MODULE_0__.determineWinner)(id, transitionDuration);
-            IsWinnerDetermined = true;
-        }
+    return __awaiter(this, void 0, void 0, function* () {
+        const car = document.getElementById(id);
+        const carIcon = car === null || car === void 0 ? void 0 : car.children[2];
+        const road = document.querySelector('.car__road');
+        const carWidht = 100;
+        const roadDistance = road.offsetWidth - carWidht;
+        const name = yield getNameById(id);
+        const speed = engine.velocity;
+        const distance = engine.distance;
+        const time = Math.floor(distance / speed) / 1000;
+        carIcon.style.transition = `${time}s`;
+        carIcon.style.transform = `translateX(${roadDistance}px)`;
+        carIcon.addEventListener('transitionend', () => {
+            if (IsWinnerDetermined === false) {
+                const transitionDuration = carIcon.style.transitionDuration;
+                (0,_winners__WEBPACK_IMPORTED_MODULE_0__.determineWinner)(id, transitionDuration);
+                IsWinnerDetermined = true;
+                const winnerNotification = document.createElement('div');
+                const html = document.getElementsByTagName('html')[0];
+                winnerNotification.classList.add('winner-notification');
+                winnerNotification.textContent = `${name} IS A WINNER WITH ${time}s`;
+                html.append(winnerNotification);
+                setTimeout(() => {
+                    winnerNotification.style.left = '5000px';
+                }, 5000);
+                setTimeout(() => {
+                    html.removeChild(winnerNotification);
+                }, 7000);
+            }
+        });
+    });
+}
+function getNameById(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(`http://127.0.0.1:3000/garage/${id}`)
+            .then((response) => response.json())
+            .then((result) => {
+            return result;
+        });
+        return response.name;
     });
 }
 function stopImmediately(id) {
@@ -2178,7 +2202,7 @@ function updateWinner(data) {
             .then((result) => {
             return result;
         });
-        data.wins++;
+        response.wins++;
         if (data.time > response.time) {
             data.time = response.time;
         }
@@ -2187,7 +2211,7 @@ function updateWinner(data) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ wins: data.wins, time: data.time }),
+            body: JSON.stringify({ wins: response.wins, time: data.time }),
         });
     });
 }

@@ -40,7 +40,7 @@ async function updateWinner(data: Winner) {
     return result;
   });
   
-  data.wins++
+  response.wins++;
 
   if (data.time > response.time) {
     data.time = response.time
@@ -51,7 +51,7 @@ async function updateWinner(data: Winner) {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({wins: data.wins, time: data.time}),
+    body: JSON.stringify({wins: response.wins, time: data.time}),
   });
 
 }
