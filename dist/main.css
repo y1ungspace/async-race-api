@@ -144,6 +144,72 @@ input[type=color]::-webkit-color-swatch {
   border: none;
 }
 
+.winners {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.winners_hidden {
+  display: none;
+}
+
+.winners__pic {
+  width: 15%;
+  min-height: 150px;
+}
+
+.winners__title {
+  color: rgb(240, 202, 121);
+  font-size: 30px;
+}
+
+.winners__table {
+  width: 100%;
+  border: 5px solid rgb(240, 202, 121);
+  border-radius: 10px;
+}
+
+.winner__table__header {
+  background-color: rgb(15, 93, 173);
+  border-bottom: 2px solid rgb(240, 202, 121);
+}
+
+.navigation {
+  display: flex;
+}
+
+.navigation__page-number {
+  padding-left: 20px;
+  padding-right: 20px;
+  color: rgb(240, 202, 121);
+}
+
+.navigation__button {
+  width: 90px;
+  font-family: "Gruppo", cursive;
+  background-color: transparent;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  color: rgb(240, 202, 121);
+  text-align: left;
+}
+
+td {
+  padding-left: 10px;
+}
+
+#wins,
+#time {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .cars__wrapper {
   display: flex;
   align-items: flex-end;
@@ -298,72 +364,6 @@ input[type=color]::-webkit-color-swatch {
   color: rgb(243, 226, 50);
   text-shadow: 0 -1px 4px rgb(243, 226, 50), 0 -2px 10px rgb(243, 226, 50), 0 -10px 20px #cf8c39, 0 -18px 40px #cf4339;
   transition: 0.5s;
-}
-
-.winners {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.winners_hidden {
-  display: none;
-}
-
-.winners__pic {
-  width: 15%;
-  min-height: 150px;
-}
-
-.winners__title {
-  color: rgb(240, 202, 121);
-  font-size: 30px;
-}
-
-.winners__table {
-  width: 100%;
-  border: 5px solid rgb(240, 202, 121);
-  border-radius: 10px;
-}
-
-.winner__table__header {
-  background-color: rgb(15, 93, 173);
-  border-bottom: 2px solid rgb(240, 202, 121);
-}
-
-.navigation {
-  display: flex;
-}
-
-.navigation__page-number {
-  padding-left: 20px;
-  padding-right: 20px;
-  color: rgb(240, 202, 121);
-}
-
-.navigation__button {
-  width: 90px;
-  font-family: "Gruppo", cursive;
-  background-color: transparent;
-  font-size: 16px;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  color: rgb(240, 202, 121);
-  text-align: left;
-}
-
-td {
-  padding-left: 10px;
-}
-
-#wins,
-#time {
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
 }
 
 html {
